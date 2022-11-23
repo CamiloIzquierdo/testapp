@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const PostApi = () => {
-    const test = () => {
+    const test = async () => {
         const body = {
             collection: "pelis",
             database: "api",
@@ -21,7 +21,7 @@ export const PostApi = () => {
                     "gyozKV9svE6YhFEgXekc9AJy6aT5UH7I9qBuLXF1h078BcLLWholMdKR6I8IspI2",
             },
         };
-        const response = axios.post(
+        const response = await axios.post(
             "https://data.mongodb-api.com/app/data-vugsc/endpoint/data/v1/action/insertOne",
             body,
             header
