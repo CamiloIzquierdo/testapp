@@ -16,7 +16,7 @@ export const PostApi = () => {
         const header = {
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Request-Headers": "*",
+                "Access-Control-Allow-Origin": "*",
                 "api-key":
                     "gyozKV9svE6YhFEgXekc9AJy6aT5UH7I9qBuLXF1h078BcLLWholMdKR6I8IspI2",
             },
