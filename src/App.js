@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Principal from "./components/Principal";
+import Video from "./components/Video";
+import "./css/App.css";
+import AgregarPelicula from "./pages/Form/Formulario";
+import Formulario from "./pages/Form/Formulario";
+import FormResto from "./pages/FormResto/FormResto";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <Header />
+            <div className="container d-flex align-items-center flex-column">
+                <Routes>
+                    <Route path="/principal" element={<Principal />} />
+                    <Route path="/" element={<Video />} />
+                    <Route path="/formulario" element={<AgregarPelicula />} />
+                    <Route path="/formularioresto" element={<FormResto />} />
+                </Routes>
+            </div>
+        </>
+    );
 }
 
 export default App;
