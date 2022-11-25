@@ -3,9 +3,9 @@ import Header from "./components/Header";
 import Principal from "./components/Principal";
 import Video from "./components/Video";
 import "./css/App.css";
-import AgregarPelicula from "./pages/Form/Formulario";
-import Formulario from "./pages/Form/Formulario";
+import { FormPeli } from "./pages/Form/Formulario";
 import FormResto from "./pages/FormResto/FormResto";
+import { VerPelis } from "./components/VerPelis";
 
 function App() {
     return (
@@ -15,8 +15,9 @@ function App() {
                 <Routes>
                     <Route path="/principal" element={<Principal />} />
                     <Route path="/" element={<Video />} />
-                    <Route path="/formulario" element={<AgregarPelicula />} />
+                    <Route path="/formulariopelis" element={<FormPeli />} />
                     <Route path="/formularioresto" element={<FormResto />} />
+                    <Route path="/verpelis" element={<VerPelis />} />
                 </Routes>
             </div>
         </>

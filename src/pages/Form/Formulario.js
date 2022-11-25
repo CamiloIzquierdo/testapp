@@ -1,135 +1,137 @@
-import React from "react";
+import axios from "axios";
+import { set } from "mongoose";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { PostApi } from "../../components/postapi";
 import "./Formulario.css";
-import Constantes from "../../components/Constantes";
-import { Toast } from "bootstrap";
 
-class AgregarPelicula extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pelicula: {
-                pelicula: "",
-                puntajegordo: Number,
-                puntajegorda: Number,
-                comentario: "",
-            },
-        };
-        // Indicarle a las funciones a quién nos referimos con "this"
-        this.manejarCambio = this.manejarCambio.bind(this);
-        this.manejarEnvioDePelicula = this.manejarEnvioDePelicula.bind(this);
-    }
-    render() {
-        return (
-            <div className="form-pelicula">
-                <form onSubmit={this.manejarEnvioDePelicula}>
-                    <fieldset>
-                        <legend className="d-flex justify-content-center">
-                            Puntaje de la pelicula
-                        </legend>
-                        <div className="group">
-                            <label for="pelicula">🎬</label>
-                            <input
-                                autoFocus
-                                required
-                                placeholder="pelicula"
-                                type="text"
-                                id="pelicula"
-                                onChange={this.manejarCambio}
-                                value={this.state.pelicula.pelicula}
-                                className="input"
-                            />
-                        </div>
+export const FormPeli = () => {
+    const [nombre, setNombre] = useState();
+    const [image, setImage] = useState("");
+    console.log(image);
 
-                        <div className="group">
-                            <label for="puntajegorda">👩</label>
-                            <input
-                                autoFocus
-                                required
-                                placeholder="puntajegorda"
-                                type="number"
-                                id="puntajegorda"
-                                onChange={this.manejarCambio}
-                                value={this.state.pelicula.puntajegorda}
-                                className="input"
-                            />
-                        </div>
-
-                        <div className="group">
-                            <label for="puntajegordo">🧑</label>
-                            <input
-                                autoFocus
-                                required
-                                placeholder="puntajegordo"
-                                type="number"
-                                id="puntajegordo"
-                                onChange={this.manejarCambio}
-                                value={this.state.pelicula.puntajegordo}
-                                className="input"
-                            />
-                        </div>
-                        <div className="group">
-                            <label for="comentario">🤔</label>
-                            <textarea
-                                autoFocus
-                                required
-                                placeholder="comentario"
-                                type="text"
-                                id="comentario"
-                                onChange={this.manejarCambio}
-                                value={this.state.pelicula.comentario}
-                                className="input"
-                            />
-                        </div>
-                    </fieldset>
-                    <div className="form-group">
-                        <button className="button is-success mt-2">
-                            Guardar
-                        </button>
-                        &nbsp;
-                        <Link to="/" className="button is-primary mt-2">
-                            Volver
-                        </Link>
-                    </div>
-                </form>
-            </div>
-        );
-    }
-    async manejarEnvioDePelicula(evento) {
-        evento.preventDefault();
-        // Codificar nuestro videojuego como JSON
-
-        const cargaUtil = JSON.stringify(this.state.pelicula);
-        // ¡Y enviarlo!
-        const respuesta = await fetch(`${Constantes.RUTA_API}`, {
-            method: "POST",
-            body: cargaUtil,
-            headers: {
-                "Content-Type": "application/json",
-            },
+    const handleTest = (event) => {
+        event.preventDefault();
+        console.log(event.target.elements.comentario.value);
+        setNombre({
+            nombre: event.target.elements.pelicula.value,
+            puntajeGorda: event.target.elements.puntajeGorda.value,
+            puntajeGordo: event.target.elements.puntajeGordo.value,
+            comentario: event.target.elements.comentario.value,
         });
-        const exitoso = await respuesta.json();
-        if (exitoso) {
-            Toast("Videojuego guardado 🎮", {
-                position: "top-left",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            this.setState({
-                videojuego: {
-                    nombre: "",
-                    precio: "",
-                    calificacion: "",
-                },
-            });
-        } else {
-            Toast.error("Error guardando. Intenta de nuevo");
-        }
-    }
-}
+        event.target.reset();
+    };
 
-export default AgregarPelicula;
+    const postPeli = async () => {
+        if (nombre) {
+            const body = {
+                nombre: nombre.nombre,
+                puntajeGorda: nombre.puntajeGorda,
+                puntajeGordo: nombre.puntajeGordo,
+                comentario: nombre.comentario,
+                imagen: image,
+            };
+            const response = await axios.post(
+                "https://k2n5j844.directus.app/items/pelis",
+                body
+            );
+            console.log(response);
+        }
+    };
+    const handleImage = (file) => {
+        Array.from(file).forEach((f) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(f);
+            reader.onload = function () {
+                let array = [];
+                let base64 = reader.result;
+                array = base64.split(",");
+                setImage(array[1]);
+            };
+        });
+    };
+
+    useEffect(() => {
+        postPeli();
+    }, [nombre]);
+
+    return (
+        <div className="form-pelicula">
+            <form onSubmit={(event) => handleTest(event)}>
+                <fieldset>
+                    <legend className="d-flex justify-content-center">
+                        Puntaje de la pelicula
+                    </legend>
+                    <div className="group">
+                        <label htmlFor="pelicula">🎬</label>
+                        <input
+                            autoFocus
+                            required
+                            placeholder="pelicula"
+                            type="text"
+                            id="pelicula"
+                            className="input"
+                        />
+                    </div>
+
+                    <div className="group">
+                        <label htmlFor="puntajeGorda">👩</label>
+                        <input
+                            autoFocus
+                            required
+                            placeholder="puntaje Gorda"
+                            type="number"
+                            id="puntajeGorda"
+                            className="input"
+                        />
+                    </div>
+
+                    <div className="group">
+                        <label htmlFor="puntajeGordo">🧑</label>
+                        <input
+                            autoFocus
+                            required
+                            placeholder="puntaje Gordo"
+                            type="number"
+                            id="puntajeGordo"
+                            className="input"
+                        />
+                    </div>
+                    <div className="group">
+                        <label htmlFor="file"></label>
+                        <input
+                            autoFocus
+                            placeholder="comentario"
+                            type="file"
+                            id="file"
+                            className="input"
+                            accept=".jpg, .png|image/*"
+                            onChange={(event) =>
+                                handleImage(event.target.files)
+                            }
+                        />
+                    </div>
+                    <div className="group">
+                        <label htmlFor="comentario">🤔</label>
+                        <textarea
+                            autoFocus
+                            required
+                            placeholder="comentario"
+                            type="text"
+                            id="comentario"
+                            className="input"
+                        />
+                    </div>
+                </fieldset>
+                <div className="form-group">
+                    <button className="button is-success mt-2">Guardar</button>
+                    &nbsp;
+                    <Link to="/" className="button is-primary mt-2">
+                        Volver
+                    </Link>
+                </div>
+            </form>
+        </div>
+    );
+};
