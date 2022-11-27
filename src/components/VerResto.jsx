@@ -3,26 +3,26 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Spinner from "./Spinner/Spinner";
 
-export const VerPelis = () => {
+export const VerResto = () => {
     const [listado, setListado] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getPelis = async () => {
+    const getResto = async () => {
         const response = await axios.get(
-            "https://k2n5j844.directus.app/items/pelis"
+            "https://k2n5j844.directus.app/items/restaurantes"
         );
         setListado(response.data.data.reverse());
         setLoading(false);
     };
     useEffect(() => {
         setLoading(true);
-        getPelis();
+        getResto();
     }, []);
 
     return (
         <div className="text-2xl w-full flex items-center flex-col">
-            <h1 className="w-full flex justify-center font-bold my-4 text-4xl">
-                Listado peliculas 📼
+            <h1 className="w-full flex justify-center font-bold my-4 md:text-4xl">
+                Listado restaurantes 🍔
             </h1>
             {!loading ? (
                 <div className="flex flex-col gap-10 md:flex-row flex-wrap justify-center">

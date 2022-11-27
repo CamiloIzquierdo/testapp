@@ -1,19 +1,15 @@
 import axios from "axios";
-import { set } from "mongoose";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PostApi } from "../../components/postapi";
 import "./Formulario.css";
 
 export const FormPeli = () => {
     const [nombre, setNombre] = useState();
     const [image, setImage] = useState("");
-    console.log(image);
 
     const handleTest = (event) => {
         event.preventDefault();
-        console.log(event.target.elements.comentario.value);
         setNombre({
             nombre: event.target.elements.pelicula.value,
             puntajeGorda: event.target.elements.puntajeGorda.value,
@@ -36,7 +32,6 @@ export const FormPeli = () => {
                 "https://k2n5j844.directus.app/items/pelis",
                 body
             );
-            console.log(response);
         }
     };
     const handleImage = (file) => {
@@ -68,7 +63,7 @@ export const FormPeli = () => {
                         <input
                             autoFocus
                             required
-                            placeholder="pelicula"
+                            placeholder="Pelicula"
                             type="text"
                             id="pelicula"
                             className="input"
@@ -80,7 +75,7 @@ export const FormPeli = () => {
                         <input
                             autoFocus
                             required
-                            placeholder="puntaje Gorda"
+                            placeholder="Puntaje Gorda"
                             type="number"
                             id="puntajeGorda"
                             className="input"
@@ -92,7 +87,7 @@ export const FormPeli = () => {
                         <input
                             autoFocus
                             required
-                            placeholder="puntaje Gordo"
+                            placeholder="Puntaje Gordo"
                             type="number"
                             id="puntajeGordo"
                             className="input"
@@ -117,19 +112,17 @@ export const FormPeli = () => {
                         <textarea
                             autoFocus
                             required
-                            placeholder="comentario"
+                            placeholder="Opiniones"
                             type="text"
                             id="comentario"
-                            className="input"
+                            className="input w-full min-h-[100px]"
                         />
                     </div>
                 </fieldset>
-                <div className="form-group">
-                    <button className="button is-success mt-2">Guardar</button>
-                    &nbsp;
-                    <Link to="/" className="button is-primary mt-2">
-                        Volver
-                    </Link>
+                <div className="flex gap-5 w-full justify-end">
+                    <button className="bg-sky-600 text-white px-2 rounded-md font-bold py-1">
+                        Publicar
+                    </button>
                 </div>
             </form>
         </div>
