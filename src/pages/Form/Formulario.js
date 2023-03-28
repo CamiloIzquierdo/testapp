@@ -1,7 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Formulario.css";
 
 export const FormPeli = () => {
@@ -102,9 +100,9 @@ export const FormPeli = () => {
                             id="file"
                             className="input"
                             accept=".jpg, .png|image/*"
-                            onChange={(event) =>
-                                handleImage(event.target.files)
-                            }
+                            onChange={(event) => {
+                                handleImage(event.target.files);
+                            }}
                         />
                     </div>
                     <div className="group">

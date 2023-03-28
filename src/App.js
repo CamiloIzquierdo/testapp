@@ -9,6 +9,7 @@ import { VerResto } from "./components/VerResto";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Inicio } from "./components/Inicio";
+import LandingPage from "./components/LandingPage";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/formularioresto" element={<FormResto />} />
                     <Route path="/verresto" element={<VerResto />} />
                     <Route path="/verpelis" element={<VerPelis />} />
+                    <Route path="/landing" element={<LandingPage />} />
                 </Routes>
             </div>
             <ToastContainer

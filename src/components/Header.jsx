@@ -6,7 +6,7 @@ function Header() {
     const [open, setOpen] = useState(false);
     return (
         <nav className="p-3 border-gray-200 rounded bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-            <div className="container flex items-center justify-between mx-auto flex-wrap md:flex-nowrap">
+            <div className="container flex items-center justify-center mx-auto flex-wrap md:flex-nowrap md:justify-between">
                 <Link to="/" className="flex items-center">
                     <img
                         src={Logo}
