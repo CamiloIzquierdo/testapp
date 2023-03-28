@@ -5,7 +5,7 @@ import Logo from "../assets/logo.png";
 function Header() {
     const [open, setOpen] = useState(false);
     return (
-        <nav className="p-3 border-gray-200 rounded bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+        <nav className="p-3 border-gray-200 md:rounded bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
             <div className="container items-center justify-center mx-auto flex-wrap md:flex-nowrap md:justify-between contents md:flex">
                 <div className="flex items-center justify-center">
                     <Link to="/" className="flex items-center">
